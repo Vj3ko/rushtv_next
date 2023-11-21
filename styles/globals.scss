@@ -1,0 +1,91 @@
+@import './colors';
+@import './fonts';
+@import './breakpoints';
+@import './custom';
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scrollbar-width: none;
+}
+
+body {
+  background-color: $bg;
+  font-family: 'Montserrat', sans-serif;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+ul {
+  list-style-type: none;
+}
+
+a {
+  text-decoration: none;
+  color: $white;
+  cursor: pointer;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: $white;
+}
+
+h1 {
+  font-size: 1.563rem;
+
+  @include media-min($md) {
+    font-size: 2rem;
+  }
+
+  @include media-min($lg) {
+    font-size: 2.188rem;
+  }
+}
+
+h2 {
+  font-size: 1.25rem;
+  text-transform: uppercase;
+  font-weight: 600;
+
+  @include media-min($md) {
+    font-size: 1.563rem;
+  }
+
+  @include media-min($lg) {
+    font-size: 1.75rem;
+  }
+}
+
+h3 {
+  font-size: 1.125rem;
+  font-weight: 500;
+
+  @include media-min($md) {
+    font-size: 1.25rem;
+  }
+
+  @include media-min($lg) {
+    font-size: 1.5rem;
+  }
+}
+
+p,
+span {
+  font-size: 0.938rem;
+  color: $silver;
+}
+
+button {
+  border: none;
+  cursor: pointer;
+}

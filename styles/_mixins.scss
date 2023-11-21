@@ -1,0 +1,24 @@
+@mixin flexLayout($justify, $align) {
+  display: flex;
+  justify-content: $justify;
+  align-items: $align;
+}
+
+$spacing-S: 24px;
+$spacing-M: 48px;
+
+@mixin containerSpacing($spacing) {
+  padding-left: $spacing;
+  padding-right: $spacing;
+}
+
+$margin-S: 75px;
+$margin-M: 100px;
+
+@mixin sectionSpacing($spacing) {
+  margin-top: $spacing;
+}
+
+@mixin transition() {
+  transition: 250ms ease-in-out;
+}

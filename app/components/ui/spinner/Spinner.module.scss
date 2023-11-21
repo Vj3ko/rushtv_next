@@ -1,0 +1,6 @@
+@import 'styles/mixins';
+
+.spinner {
+  height: 50vh;
+  @include flexLayout(center, center);
+}

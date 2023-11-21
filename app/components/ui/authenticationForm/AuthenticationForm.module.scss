@@ -1,0 +1,12 @@
+@import 'styles/mixins';
+@import 'styles/colors';
+@import 'styles/breakpoints';
+
+.wrapper {
+  @include flexLayout(center, center);
+  @include sectionSpacing($margin-S);
+
+  @include media-min($lg) {
+    @include sectionSpacing($margin-M);
+  }
+}

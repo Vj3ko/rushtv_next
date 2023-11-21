@@ -9,16 +9,37 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@plaiceholder/next": "^3.0.0",
+    "@types/bcryptjs": "^2.4.6",
+    "axios": "^1.6.0",
+    "bcryptjs": "^2.4.3",
+    "framer-motion": "^10.16.4",
+    "mongodb": "^6.3.0",
+    "mongoose": "^8.0.1",
+    "nanoid": "^5.0.3",
+    "next": "13.5.3",
+    "next-auth": "^4.24.5",
     "react": "^18",
     "react-dom": "^18",
-    "next": "14.0.1"
+    "react-headless-accordion": "^1.0.2",
+    "react-icons": "^4.11.0",
+    "react-paginate": "^8.1.3",
+    "react-player": "^2.13.0",
+    "react-spinners": "^0.13.8",
+    "react-toastify": "^9.1.3",
+    "sharp": "^0.32.6",
+    "swiper": "^11.0.3",
+    "swr": "^2.2.4"
   },
   "devDependencies": {
-    "typescript": "^5",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "eslint": "^8",
-    "eslint-config-next": "14.0.1"
+    "eslint-config-next": "14.0.1",
+    "eslint-config-prettier": "^9.0.0",
+    "prettier": "^3.0.3",
+    "sass": "^1.69.5",
+    "typescript": "^5"
   }
 }

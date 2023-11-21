@@ -1,0 +1,16 @@
+.scrollToContentBtn {
+  z-index: 10;
+  position: absolute;
+  bottom: 3.125rem;
+  animation: bounce 1s infinite alternate;
+  background: transparent;
+}
+
+@keyframes bounce {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(10px);
+  }
+}

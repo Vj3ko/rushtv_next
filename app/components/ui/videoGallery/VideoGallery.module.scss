@@ -1,0 +1,36 @@
+@import 'styles/breakpoints';
+
+.gallery {
+  position: relative;
+  height: auto;
+
+  .swiper {
+    height: 100%;
+  }
+
+  .swiper__slide {
+    position: relative;
+    border-radius: 1rem;
+    overflow: hidden;
+    width: 20.625rem;
+    height: 11.875rem;
+
+    @include media-min($md) {
+      width: 26.25rem;
+      height: 15rem;
+    }
+
+    @include media-min($md) {
+      width: 37.5rem;
+      height: 20.625rem;
+    }
+  }
+
+  .slider__controler {
+    display: none;
+
+    @include media-min($md) {
+      display: block;
+    }
+  }
+}

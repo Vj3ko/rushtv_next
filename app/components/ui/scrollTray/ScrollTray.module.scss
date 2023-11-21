@@ -1,0 +1,143 @@
+@import 'styles/mixins';
+@import 'styles/colors';
+@import 'styles/breakpoints';
+@import 'styles/fonts';
+
+.tray__wrapper {
+  margin: 10px 0;
+
+  .slider {
+    margin: auto;
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    display: grid;
+    place-items: center;
+
+    &::before,
+    &::after {
+      background: linear-gradient(
+        90deg,
+        rgba(11, 12, 15, 1) 0%,
+        rgba(11, 12, 15, 0) 100%
+      );
+      content: '';
+      height: 100%;
+      position: absolute;
+      width: 5%;
+      z-index: 2;
+    }
+
+    &::before {
+      left: 0;
+      top: 0;
+    }
+
+    &::after {
+      right: 0;
+      top: 0;
+      transform: rotate(180deg);
+    }
+  }
+
+  .slide_track {
+    display: flex;
+    width: calc(12.5rem * 20);
+    animation: scroll 70s linear infinite alternate;
+
+    &.left {
+      animation: scroll 70s linear infinite alternate-reverse;
+    }
+
+    &:hover {
+      animation-play-state: paused;
+    }
+
+    @include media-min($md) {
+      width: calc(18.75rem * 20);
+    }
+    @include media-min($lg) {
+      width: calc(25rem * 20);
+    }
+  }
+
+  .slide {
+    width: 12.5rem;
+    height: 6.25rem;
+    display: flex;
+    align-items: center;
+    margin: 0 0.3125rem;
+    position: relative;
+    border-radius: 0.625rem;
+    overflow: hidden;
+
+    @include media-min($md) {
+      width: 18.75rem;
+      height: 9.375rem;
+    }
+
+    @include media-min($lg) {
+      width: 25rem;
+      height: 13.75rem;
+    }
+
+    a {
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      @include transition();
+      display: grid;
+      place-items: center;
+
+      &:hover {
+        background: rgba(11, 12, 15, 0.5);
+        cursor: pointer;
+      }
+
+      &__inner {
+        opacity: 0;
+        @include transition();
+        max-width: 80%;
+
+        h4 {
+          text-shadow: 0.125rem 0.125rem 0.125rem $bg;
+        }
+      }
+
+      &:hover .overlay__inner {
+        opacity: 1;
+      }
+    }
+
+    .img {
+      height: 100%;
+      width: 100%;
+    }
+
+    @keyframes scroll {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(calc(-12.5rem * 10));
+
+        @include media-min($md) {
+          transform: translateX(calc(-18.75rem * 10));
+        }
+
+        @include media-min($md) {
+          transform: translateX(calc(-25rem * 10));
+        }
+      }
+    }
+  }
+}

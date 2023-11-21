@@ -1,0 +1,74 @@
+@import 'styles/breakpoints';
+@import 'styles/mixins';
+@import 'styles/colors';
+
+.slider {
+  position: relative;
+  min-height: 15.25rem;
+
+  @include media-min($md) {
+    min-height: 19rem;
+  }
+
+  .swiper__slide {
+    width: 10rem;
+    height: unset;
+    max-height: 15rem;
+    position: relative;
+    border-radius: 1rem;
+    overflow: hidden;
+
+    @include media-min($md) {
+      width: 12.5rem;
+      max-height: 18.75rem;
+    }
+
+    @include media-min($lg) {
+      width: 12.5rem;
+    }
+
+    &.big {
+      width: 20.625rem;
+
+      @include media-min($md) {
+        width: 25rem;
+      }
+
+      @include media-min($lg) {
+        width: 31.25rem;
+      }
+    }
+  }
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: -1px;
+  bottom: -1px;
+  @include flexLayout(flex-end, flex-start);
+  flex-direction: column;
+  padding: 0.625rem;
+  background: $cardGradient;
+  text-align: left;
+}
+
+.slide__title {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: $white;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 1; /* number of lines to show */
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.slider__controler {
+  display: none;
+
+  @include media-min($md) {
+    display: block;
+  }
+}

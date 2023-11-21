@@ -1,0 +1,179 @@
+@import 'styles/mixins';
+@import 'styles/breakpoints';
+@import 'styles/colors';
+
+.Toastify__toast {
+  background: $oxfordBlue;
+  color: $white;
+}
+
+.Toastify__close-button {
+  width: unset;
+  color: $white;
+  background: transparent;
+  padding: unset;
+  opacity: 0.7;
+  align-self: center;
+}
+
+.Toastify__progress-bar {
+  background: $blue;
+}
+
+.container {
+  width: 100%;
+  height: 100%;
+  @include containerSpacing($spacing-S);
+
+  @include media-min($lg) {
+    @include containerSpacing($spacing-M);
+  }
+}
+
+.page__section {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+
+  h1 {
+    max-width: 50rem;
+  }
+
+  h2,
+  h3 {
+    margin-bottom: 0.625rem;
+  }
+
+  .wrapper {
+    @include flexLayout(center, flex-start);
+    flex-direction: column;
+
+    &.episode {
+      @include sectionSpacing($margin-S);
+    }
+
+    @include media-min($md) {
+      @include sectionSpacing($margin-S);
+    }
+
+    @include media-min($lg) {
+      @include sectionSpacing($margin-M);
+      flex-direction: row;
+    }
+  }
+
+  .media {
+    @include flexLayout(unset, flex-start);
+    flex-direction: column;
+    gap: 0.938rem;
+
+    .year {
+      font-size: 1.125rem;
+      font-weight: normal;
+      margin-left: 0.438rem;
+      color: $blue;
+
+      @include media-min($lg) {
+        font-size: 1.5rem;
+      }
+    }
+
+    .genres {
+      @include flexLayout(unset, center);
+
+      & > div {
+        display: flex;
+        flex-wrap: wrap;
+        column-gap: 0.125rem;
+      }
+
+      .genre {
+        color: $blue;
+      }
+
+      .runtime {
+        margin-left: 0.938rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.313rem;
+      }
+    }
+  }
+
+  .buttons--wrapper {
+    display: flex;
+    gap: 0.625rem;
+  }
+}
+
+.stats__section {
+  margin: 1.25rem 0;
+
+  @include media-min($lg) {
+    margin: 2.5rem 0;
+  }
+
+  .language {
+    text-transform: uppercase;
+  }
+
+  .aka {
+    color: $silver;
+  }
+}
+
+.list__section {
+  @include sectionSpacing($margin-S);
+
+  @include media-min($lg) {
+    @include sectionSpacing($margin-M);
+  }
+
+  a {
+    color: $blue;
+  }
+
+  .list {
+    margin-top: 1.25rem;
+
+    .results {
+      text-align: center;
+      margin-top: 1.25rem;
+    }
+  }
+}
+
+.filter__btns {
+  margin-top: 0.938rem;
+  display: flex;
+  gap: 0.625rem;
+  overflow-x: scroll;
+  scrollbar-width: none;
+  scroll-snap-type: x mandatory;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  .filter {
+    white-space: nowrap;
+    text-transform: uppercase;
+    font-family: 'Bebas Neue', cursive;
+    font-size: 1rem;
+    letter-spacing: 0.125rem;
+    padding: 0.313rem 1.25rem;
+    border-radius: 1.563rem;
+    background: transparent;
+    color: $blue;
+    border: 0.063rem solid $blue;
+    @include transition();
+    outline: none;
+    scroll-snap-align: start;
+
+    &:hover,
+    &:focus {
+      background: $blue;
+      color: $white;
+    }
+  }
+}

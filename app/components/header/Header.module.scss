@@ -1,0 +1,126 @@
+@import 'styles/mixins';
+@import 'styles/colors';
+@import 'styles/breakpoints';
+@import 'styles/fonts';
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 999;
+  background: transparent;
+  @include transition();
+  overflow: hidden;
+
+  &.transparent {
+    background: $bg;
+  }
+
+  .header__wrapper {
+    width: 100%;
+    height: 100%;
+    @include flexLayout(space-between, center);
+    flex-wrap: wrap;
+    padding: 0.625rem 1.5rem;
+
+    @include media-min($lg) {
+      padding: 10px 48px;
+    }
+
+    .header__logo {
+      font-family: 'Bebas Neue', cursive;
+      text-shadow: 0.125rem 0.125rem 0.313rem rgba(0, 0, 0, 0.3);
+      letter-spacing: 0.125rem;
+    }
+  }
+
+  .header__action {
+    @include flexLayout(unset, center);
+    gap: 1rem;
+
+    a,
+    button {
+      @include flexLayout(center, center);
+    }
+
+    .header__cta {
+      background: transparent;
+    }
+  }
+}
+
+.nav {
+  width: 100%;
+
+  .nav__wrapper {
+    margin: 1.25rem 0;
+    @include flexLayout(unset, center);
+    flex-flow: wrap;
+    gap: 1.25rem;
+    overflow-y: auto;
+    height: 80vh;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    @include media-min($md) {
+      height: auto;
+      gap: 1.875rem;
+      margin: 2.5rem 0;
+    }
+  }
+
+  .nav__section {
+    flex-basis: 100%;
+    align-self: start;
+
+    @include media-min($sm) {
+      flex-basis: 45%;
+    }
+
+    @include media-min($md) {
+      flex-basis: 30%;
+    }
+  }
+
+  h3 {
+    color: $blue;
+    text-transform: uppercase;
+    margin-bottom: 0.313rem;
+    font-size: 1.25rem;
+    font-weight: normal;
+  }
+
+  h4 {
+    color: $blue;
+    font-weight: normal;
+  }
+
+  li {
+    padding: 0.125rem 0;
+
+    a:hover,
+    a:focus {
+      color: $blue;
+    }
+  }
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 0;
+  background: transparent;
+  z-index: -1;
+  @include transition();
+
+  &.active {
+    position: fixed;
+    background: rgba(11, 12, 15, 0.8);
+  }
+}

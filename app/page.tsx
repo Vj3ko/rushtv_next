@@ -1,95 +1,131 @@
+import AnimatedComponent from 'animations/AnimatedComponent'
+import {
+  comedyMoviesURL,
+  crimeMoviesURL,
+  getMovies,
+  topRatedMoviesURL,
+} from 'api/movies'
+import {
+  comedyShowsURL,
+  crimeShowsURL,
+  getTvShows,
+  topRatedShowsURL,
+} from 'api/tvShows'
+import entertainmentImg from 'images/home_bg.jpg'
 import Image from 'next/image'
-import styles from './page.module.css'
+import Link from 'next/link'
+import { BsChevronCompactDown } from 'react-icons/bs'
+import AnimatedImage from './components/AnimatedImage'
+import { ScrollToContentBtn, ScrollTray } from './components/ui'
+import styles from './homepage.module.scss'
 
-export default function Home() {
+export default async function Home() {
+  const comedyMovies = await getMovies(comedyMoviesURL)
+  const topRatedMovies = await getMovies(topRatedMoviesURL)
+  const crimeMovies = await getMovies(crimeMoviesURL)
+
+  const comedyShows = await getTvShows(comedyShowsURL)
+  const topRatedShows = await getTvShows(topRatedShowsURL)
+  const crimeShows = await getTvShows(crimeShowsURL)
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
+    <AnimatedComponent>
+      <div className={styles.hero}>
+        <div className={styles.overlay} />
+        <AnimatedImage>
+          <Image
+            src={entertainmentImg}
+            alt=''
+            priority
+            className={styles.hero__img}
+          />
+        </AnimatedImage>
+
+        <h1>
+          Rush TV, the ultimate application for all your entertainment needs!
+        </h1>
         <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.tsx</code>
+          With Rush TV, you can embark on an exciting journey through the vast
+          world of movies, TV shows and your favorite celebrities. Whether
+          you&apos;re in the mood for a thrilling action-packed film, a
+          heartwarming romance, or a gripping TV series, Rush TV has got you
+          covered.
         </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+        <ScrollToContentBtn href='#desc'>
+          <button className={styles.scrollToContentBtn}>
+            <BsChevronCompactDown color='silver' size={30} />
+          </button>
+        </ScrollToContentBtn>
+      </div>
+
+      <div className='container' id='desc'>
+        <div className={styles.description}>
+          <h2>
+            Searching for your favorite movies or TV shows has never been easier
+          </h2>
+          <p>
+            With our intuitive search feature, you can simply type in the title
+            or keywords, and Rush TV will present you with a plethora of options
+            to choose from. From classic blockbusters to the latest releases,
+            our extensive library ensures that you&apos;ll find exactly what
+            you&apos;re looking for.
+          </p>
+          <Link className={styles.explore} href={'/search'}>
+            Start searching
+          </Link>
         </div>
       </div>
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+      <ScrollTray
+        direction='right'
+        mediaType='movie'
+        gallery={comedyMovies.results}
+      />
 
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
+      <ScrollTray
+        direction='left'
+        mediaType='movie'
+        gallery={crimeMovies.results}
+      />
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
+      <ScrollTray
+        direction='right'
+        mediaType='movie'
+        gallery={topRatedMovies.results}
+      />
 
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+      <div className='container'>
+        <div className={styles.description}>
           <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
+            Explore an extensive library of TV shows and movies, covering a wide
+            range of genres to suit every taste.
           </h2>
           <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
+            WWhether you&apos;re in the mood for action, comedy, romance, or
+            something entirely different, Rush TV has you covered. Dive into
+            popular releases, binge-worthy series, or discover hidden gems that
+            will leave you wanting more.
           </p>
-        </a>
+        </div>
       </div>
-    </main>
+
+      <ScrollTray
+        direction='left'
+        mediaType='tv'
+        gallery={comedyShows.results}
+      />
+
+      <ScrollTray
+        direction='right'
+        mediaType='tv'
+        gallery={crimeShows.results}
+      />
+
+      <ScrollTray
+        direction='left'
+        mediaType='tv'
+        gallery={topRatedShows.results}
+      />
+    </AnimatedComponent>
   )
 }

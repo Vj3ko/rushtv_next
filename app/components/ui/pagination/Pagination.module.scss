@@ -1,0 +1,45 @@
+@import 'styles/mixins';
+@import 'styles/colors';
+@import 'styles/breakpoints';
+
+.pagination__section {
+  padding: 1.25rem;
+  @include flexLayout(center, center);
+
+  .pagination {
+    display: flex;
+    gap: 0.313rem;
+
+    @include media-min($md) {
+      gap: 0.625rem;
+    }
+
+    li {
+      visibility: visible;
+      opacity: 1;
+      @include transition();
+
+      &.disabled {
+        visibility: hidden;
+        opacity: 0;
+      }
+
+      a {
+        padding: 0.313rem 0.438rem;
+        border-radius: 0.313rem;
+        color: $blue;
+      }
+    }
+
+    .page__link {
+      @include flexLayout(center, center);
+
+      &.active {
+        a {
+          background: $blue;
+          color: $white;
+        }
+      }
+    }
+  }
+}
