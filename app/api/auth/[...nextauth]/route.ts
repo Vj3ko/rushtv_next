@@ -1,12 +1,16 @@
+import { MongoDBAdapter } from '@next-auth/mongodb-adapter'
 import bcrypt from 'bcryptjs'
 import { connectDB } from 'lib/mongo'
 import User from 'lib/mongo/models'
 import NextAuth, { SessionStrategy } from 'next-auth'
+import { Adapter } from 'next-auth/adapters'
 import CredentialsProvider, {
   CredentialsConfig,
 } from 'next-auth/providers/credentials'
+import clientPromise from '../lib/mongo'
 
 interface AuthOptions {
+  adapter: Adapter
   providers: CredentialsConfig<{}>[]
   callbacks: {}
   session: {
@@ -14,9 +18,11 @@ interface AuthOptions {
   }
   secret: string | undefined
   pages: {}
+  database: any
 }
 
 export const authOptions: AuthOptions = {
+  adapter: MongoDBAdapter(clientPromise),
   providers: [
     CredentialsProvider({
       name: 'credentials',
@@ -58,6 +64,7 @@ export const authOptions: AuthOptions = {
   pages: {
     signIn: '/register',
   },
+  database: process.env.MONGODB_URI,
 }
 
 const handler = NextAuth(authOptions)
