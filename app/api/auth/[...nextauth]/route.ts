@@ -1,4 +1,4 @@
-import { MongoDBAdapter } from '@next-auth/mongodb-adapter'
+import { MongoDBAdapter } from '@auth/mongodb-adapter'
 import bcrypt from 'bcryptjs'
 import { connectDB } from 'lib/mongo'
 import User from 'lib/mongo/models'
