@@ -1,9 +1,9 @@
 import { prisma } from 'app/libs/prismadb'
 import bcrypt from 'bcryptjs'
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 
 //REGISTER
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   const body = await request.json()
   const { name, email, password } = body
 
