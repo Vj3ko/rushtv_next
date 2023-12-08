@@ -22,7 +22,7 @@ export const getMovies = async (url: string) => {
 }
 
 //fetch movie details
-export const getMovieDetails = async (id: string) => {
+const getMovieDetails = async (id: string) => {
   const res = await fetch(
     `${BASE_URL}/movie/${id}?api_key=${KEY}&include_adult=false&append_to_response=videos,similar,credits,recommendations,images,release_dates,content_ratings,external_ids&include_image_language=en,null`,
   )
@@ -34,4 +34,28 @@ export const getMovieDetails = async (id: string) => {
   return res.json()
 }
 
-export { comedyMoviesURL, crimeMoviesURL, topRatedMoviesURL }
+//get favorite movies
+const fetchFavoriteMovies = async () => {
+  const response = await fetch('/api/favorite/movies')
+  const data = await response.json()
+
+  const favoriteMovies = data
+    .map((movie: any) => {
+      return {
+        id: movie.movieId,
+        title: movie.movieTitle,
+        poster_path: movie.movieImg,
+      }
+    })
+    .reverse()
+
+  return favoriteMovies
+}
+
+export {
+  comedyMoviesURL,
+  crimeMoviesURL,
+  fetchFavoriteMovies,
+  getMovieDetails,
+  topRatedMoviesURL,
+}

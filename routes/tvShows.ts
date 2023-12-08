@@ -5,7 +5,7 @@ const comedyShowsURL = `${BASE_URL}/discover/tv?api_key=${KEY}&include_adult=fal
 const topRatedShowsURL = `${BASE_URL}/tv/top_rated?api_key=${KEY}&include_adult=false`
 const crimeShowsURL = `${BASE_URL}/discover/tv?api_key=${KEY}&include_adult=false&with_genres=80`
 
-export const getTvShows = async (url: string) => {
+const getTvShows = async (url: string) => {
   const res = await fetch(url, {
     next: {
       revalidate: 86400000,
@@ -20,7 +20,7 @@ export const getTvShows = async (url: string) => {
 }
 
 //fetch tv show details
-export const getTvShowDetails = async (id: string) => {
+const getTvShowDetails = async (id: string) => {
   const res = await fetch(
     `${BASE_URL}/tv/${id}?api_key=${KEY}&include_adult=false&append_to_response=videos,similar,credits,recommendations,images,release_dates,content_ratings,external_ids&include_image_language=en,null`,
   )
@@ -32,7 +32,7 @@ export const getTvShowDetails = async (id: string) => {
   return res.json()
 }
 
-export const getTvShowMinorDetails = async (id: string) => {
+const getTvShowMinorDetails = async (id: string) => {
   const res = await fetch(`${BASE_URL}/tv/${id}?api_key=${KEY}`)
 
   if (!res.ok) {
@@ -56,7 +56,7 @@ export const getTvShowSeasonDetails = async (id: string, number: string) => {
 }
 
 //fetch tv show episode details
-export const getTvShowEpisodeDetails = async (
+const getTvShowEpisodeDetails = async (
   id: string,
   season: string,
   episode: string,
@@ -72,4 +72,31 @@ export const getTvShowEpisodeDetails = async (
   return res.json()
 }
 
-export { comedyShowsURL, crimeShowsURL, topRatedShowsURL }
+//fetch favorite tv shows
+const fetchFavoriteTvShows = async () => {
+  const response = await fetch('/api/favorite/tv')
+  const data = await response.json()
+
+  const favoriteTvShows = data
+    .map((tv: any) => {
+      return {
+        id: tv.tvId,
+        title: tv.tvTitle,
+        poster_path: tv.tvImg,
+      }
+    })
+    .reverse()
+
+  return favoriteTvShows
+}
+
+export {
+  comedyShowsURL,
+  crimeShowsURL,
+  fetchFavoriteTvShows,
+  getTvShowDetails,
+  getTvShowEpisodeDetails,
+  getTvShowMinorDetails,
+  getTvShows,
+  topRatedShowsURL,
+}

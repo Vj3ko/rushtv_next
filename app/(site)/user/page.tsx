@@ -4,7 +4,10 @@ import AnimatedComponent from 'animations/AnimatedComponent'
 import { Slider } from 'app/components/ui'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useSession } from 'next-auth/react'
-import { useEffect, useState } from 'react'
+import { fetchFavoriteMovies } from 'routes/movies'
+import { fetchFavoritePeople } from 'routes/person'
+import { fetchFavoriteTvShows } from 'routes/tvShows'
+import useSWR from 'swr'
 import UserInfo from './userInfo/UserInfo'
 
 const sliderVariant = {
@@ -21,101 +24,21 @@ const sliderVariant = {
 
 const UserPage = () => {
   const { data: session } = useSession()
-  const [favoriteMovies, setFavoriteMovies] = useState([])
-  const [favoriteTvShows, setFavoriteTvShows] = useState([])
-  const [favoritePeople, setFavoritePeople] = useState([])
-  const [isLoadingMovies, setIsLoadingMovies] = useState(false)
-  const [isLoadingTvShows, setIsLoadingTvShows] = useState(false)
-  const [isLoadingPeople, setIsLoadingPeople] = useState(false)
 
-  useEffect(() => {
-    if (session) {
-      getFavoriteMovies()
-      getFavoriteTvShows()
-      getFavoritePeople()
-    }
-  }, [session])
+  const { data: favoriteMovies, isLoading: isMoviesLoading } = useSWR(
+    'movies',
+    fetchFavoriteMovies,
+  )
 
-  const getFavoriteMovies = async () => {
-    setIsLoadingMovies(true)
-    const response = await fetch('/api/favorite/movies', {
-      cache: 'no-cache',
-    })
+  const { data: favoriteTvShows, isLoading: isTvShowsLoading } = useSWR(
+    'tv',
+    fetchFavoriteTvShows,
+  )
 
-    const data = await response.json()
-
-    if (!data || data.length === 0) {
-      setIsLoadingMovies(false)
-      return
-    }
-
-    const favorites = data
-      .map((movie: any) => {
-        return {
-          id: movie.movieId,
-          title: movie.movieTitle,
-          poster_path: movie.movieImg,
-        }
-      })
-      .reverse()
-
-    setFavoriteMovies(favorites)
-    setIsLoadingMovies(false)
-  }
-
-  const getFavoriteTvShows = async () => {
-    setIsLoadingTvShows(true)
-    const response = await fetch('/api/favorite/tv', {
-      cache: 'no-cache',
-    })
-
-    const data = await response.json()
-
-    if (!data || data.length === 0) {
-      setIsLoadingTvShows(false)
-      return
-    }
-
-    const favorites = data
-      .map((tv: any) => {
-        return {
-          id: tv.tvId,
-          title: tv.tvTitle,
-          poster_path: tv.tvImg,
-        }
-      })
-      .reverse()
-
-    setFavoriteTvShows(favorites)
-    setIsLoadingTvShows(false)
-  }
-
-  const getFavoritePeople = async () => {
-    setIsLoadingPeople(true)
-    const response = await fetch('/api/favorite/people', {
-      cache: 'no-store',
-    })
-
-    const data = await response.json()
-
-    if (!data || data.length === 0) {
-      setIsLoadingPeople(false)
-      return
-    }
-
-    const favorites = data
-      .map((person: any) => {
-        return {
-          id: person.personId,
-          title: person.personTitle,
-          poster_path: person.personImg,
-        }
-      })
-      .reverse()
-
-    setFavoritePeople(favorites)
-    setIsLoadingPeople(false)
-  }
+  const { data: favoritePeople, isLoading: isPeopleLoading } = useSWR(
+    'people',
+    fetchFavoritePeople,
+  )
 
   return (
     <AnimatedComponent>
@@ -127,9 +50,9 @@ const UserPage = () => {
               <motion.h2 layout>Favorite Movies</motion.h2>
 
               <AnimatePresence mode='wait'>
-                {isLoadingMovies ? (
+                {isMoviesLoading ? (
                   <p>Loading...</p>
-                ) : !isLoadingMovies && favoriteMovies?.length > 0 ? (
+                ) : !isMoviesLoading && favoriteMovies?.length > 0 ? (
                   <motion.div
                     variants={sliderVariant}
                     initial='hide'
@@ -146,9 +69,9 @@ const UserPage = () => {
             <motion.section layout className='stats__section'>
               <motion.h2 layout>Favorite tv shows</motion.h2>
               <AnimatePresence mode='wait'>
-                {isLoadingTvShows ? (
+                {isTvShowsLoading ? (
                   <p>Loading...</p>
-                ) : !isLoadingTvShows && favoriteTvShows?.length > 0 ? (
+                ) : !isTvShowsLoading && favoriteTvShows?.length > 0 ? (
                   <motion.div
                     variants={sliderVariant}
                     initial='hide'
@@ -166,9 +89,9 @@ const UserPage = () => {
               <motion.h2 layout>Favorite people</motion.h2>
 
               <AnimatePresence mode='wait'>
-                {isLoadingPeople ? (
+                {isPeopleLoading ? (
                   <p>Loading...</p>
-                ) : !isLoadingPeople && favoritePeople?.length > 0 ? (
+                ) : !isPeopleLoading && favoritePeople?.length > 0 ? (
                   <motion.div
                     variants={sliderVariant}
                     initial='hide'
