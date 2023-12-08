@@ -1,8 +1,8 @@
 import AnimatedComponent from 'animations/AnimatedComponent'
-import { authOptions } from 'api/authOptions'
 import { AuthenticationForm } from 'app/components/ui'
 import { getServerSession } from 'next-auth'
 import { redirect } from 'next/navigation'
+import { authOptions } from 'routes/authOptions'
 
 const AuthenticatePage = async () => {
   const session = await getServerSession(authOptions)

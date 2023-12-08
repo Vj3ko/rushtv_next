@@ -1,5 +1,4 @@
 import AnimatedComponent from 'animations/AnimatedComponent'
-import { getTvShowEpisodeDetails, getTvShowMinorDetails } from 'api/tvShows'
 import {
   Carousel,
   CustomBg,
@@ -8,6 +7,7 @@ import {
   VideoGallery,
 } from 'app/components/ui'
 import { BiTime } from 'react-icons/bi'
+import { getTvShowEpisodeDetails, getTvShowMinorDetails } from 'routes/tvShows'
 import { formatDate, formatYear } from 'utils'
 
 const EpisodeDetails = async ({

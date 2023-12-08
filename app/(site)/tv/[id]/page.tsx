@@ -1,5 +1,4 @@
 import AnimatedComponent from 'animations/AnimatedComponent'
-import { getTvShowDetails } from 'api/tvShows'
 import {
   Button,
   Carousel,
@@ -10,6 +9,7 @@ import {
   Slider,
   VideoGallery,
 } from 'app/components/ui'
+import { getTvShowDetails } from 'routes/tvShows'
 import { formatDate, formatYear, getTitle } from 'utils'
 
 const TvShowDetails = async ({ params }: { params: { id: string } }) => {

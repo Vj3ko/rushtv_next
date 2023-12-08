@@ -1,5 +1,4 @@
 import AnimatedComponent from 'animations/AnimatedComponent'
-import { getPersonDetails } from 'api/person'
 import {
   Button,
   Carousel,
@@ -8,6 +7,7 @@ import {
   OverviewText,
   Slider,
 } from 'app/components/ui'
+import { getPersonDetails } from 'routes/person'
 import {
   calculateAge,
   calculateLifeSpan,

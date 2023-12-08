@@ -1,20 +1,20 @@
 import AnimatedComponent from 'animations/AnimatedComponent'
+import entertainmentImg from 'images/home_bg.jpg'
+import Image from 'next/image'
+import Link from 'next/link'
+import { BsChevronCompactDown } from 'react-icons/bs'
 import {
   comedyMoviesURL,
   crimeMoviesURL,
   getMovies,
   topRatedMoviesURL,
-} from 'api/movies'
+} from 'routes/movies'
 import {
   comedyShowsURL,
   crimeShowsURL,
   getTvShows,
   topRatedShowsURL,
-} from 'api/tvShows'
-import entertainmentImg from 'images/home_bg.jpg'
-import Image from 'next/image'
-import Link from 'next/link'
-import { BsChevronCompactDown } from 'react-icons/bs'
+} from 'routes/tvShows'
 import AnimatedImage from './components/AnimatedImage'
 import { ScrollToContentBtn, ScrollTray } from './components/ui'
 import styles from './homepage.module.scss'

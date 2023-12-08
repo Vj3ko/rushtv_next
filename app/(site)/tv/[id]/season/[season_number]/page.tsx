@@ -1,5 +1,4 @@
 import AnimatedComponent from 'animations/AnimatedComponent'
-import { getTvShowMinorDetails, getTvShowSeasonDetails } from 'api/tvShows'
 import {
   Carousel,
   CustomImg,
@@ -7,6 +6,7 @@ import {
   Slider,
   VideoGallery,
 } from 'app/components/ui'
+import { getTvShowMinorDetails, getTvShowSeasonDetails } from 'routes/tvShows'
 import { formatDate, formatYear } from 'utils'
 
 const SeasonDetails = async ({

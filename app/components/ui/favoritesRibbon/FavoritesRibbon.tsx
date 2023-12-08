@@ -1,14 +1,14 @@
 'use client'
 
-import {
-  handleSaveFavoriteMovie,
-  handleSaveFavoritePeople,
-  handleSaveFavoriteTvShow,
-} from 'api/serverActions'
 import { useSession } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 import { IoIosStar } from 'react-icons/io'
 import { toast } from 'react-toastify'
+import {
+  handleSaveFavoriteMovie,
+  handleSaveFavoritePeople,
+  handleSaveFavoriteTvShow,
+} from 'routes/serverActions'
 import { MovieType } from 'types/movie'
 import { PersonType } from 'types/person'
 import { TvType } from 'types/tv'

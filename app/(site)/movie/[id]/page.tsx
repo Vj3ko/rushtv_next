@@ -1,5 +1,4 @@
 import AnimatedComponent from 'animations/AnimatedComponent'
-import { getMovieDetails } from 'api/movies'
 import {
   Button,
   Carousel,
@@ -11,6 +10,7 @@ import {
   VideoGallery,
 } from 'app/components/ui'
 import { BiTime } from 'react-icons/bi'
+import { getMovieDetails } from 'routes/movies'
 import { MovieType } from 'types/movie'
 import { formatCurrency, formatDate, formatYear, getTitle } from 'utils'
 
