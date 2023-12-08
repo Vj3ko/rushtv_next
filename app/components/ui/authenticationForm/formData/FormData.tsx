@@ -2,7 +2,7 @@
 
 import AnimatedComponent from 'animations/AnimatedComponent'
 import { useState } from 'react'
-import { ToastContainer, toast } from 'react-toastify'
+import { toast } from 'react-toastify'
 import { FormDataType, LoginOrRegister } from '../AuthenticationForm'
 import styles from './FormData.module.scss'
 
@@ -35,62 +35,47 @@ const FormData = ({
     //validate if the password has over 8 characters
     if (!validatedPassword(password)) return
 
-    if (type === 'login') {
-      if (!name || !password) {
+    if (!email || !password) {
+      if (type === 'register' && !name) {
         toast.error('Please fill out all the input fields')
         return
       }
-
-      handleLogin({ name, password })
+      toast.error('Please fill out all the input fields')
+      return
     }
-    if (type === 'register') {
-      if (!name || !password || !email) {
-        toast.error('Please fill out all the input fields')
-        return
-      }
 
-      handleRegister({ name, password, email })
-    }
+    type === 'login'
+      ? handleLogin({ email, password })
+      : handleRegister({ name, password, email })
   }
 
   return (
     <AnimatedComponent>
-      <ToastContainer
-        position='top-right'
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        draggable={false}
-        rtl={false}
-        pauseOnFocusLoss
-        pauseOnHover
-      />
       <div className={styles.form__container}>
         <h2>{type}</h2>
 
         <form onSubmit={handleSubmit}>
-          <div className={styles.user__box}>
-            <input
-              type='text'
-              value={name}
-              name=''
-              onChange={e => setName(e.target.value)}
-            />
-            <label>name</label>
-          </div>
-
           {type === 'register' && (
             <div className={styles.user__box}>
               <input
-                type='email'
-                value={email}
+                type='text'
+                value={name}
                 name=''
-                onChange={e => setEmail(e.target.value)}
+                onChange={e => setName(e.target.value)}
               />
-              <label>email</label>
+              <label>name</label>
             </div>
           )}
+
+          <div className={styles.user__box}>
+            <input
+              type='email'
+              value={email}
+              name=''
+              onChange={e => setEmail(e.target.value)}
+            />
+            <label>email</label>
+          </div>
 
           <div className={styles.user__box}>
             <input
@@ -101,23 +86,15 @@ const FormData = ({
             />
             <label>password</label>
           </div>
-          {type === 'login' ? (
-            <p>
-              Dont have an account yet? click{' '}
-              <span onClick={changeForm} className={styles.toggler}>
-                here
-              </span>{' '}
-              to register
-            </p>
-          ) : (
-            <p>
-              Already registered? click{' '}
-              <span onClick={changeForm} className={styles.toggler}>
-                here
-              </span>{' '}
-              to login
-            </p>
-          )}
+          <p>
+            {type === 'login'
+              ? 'Dont have an account yet? Click'
+              : 'Already have an account? Click'}{' '}
+            <span onClick={changeForm} className={styles.toggler}>
+              here
+            </span>{' '}
+            {type === 'login' ? 'to register' : 'to login'}
+          </p>
 
           <button type='submit'>
             <span></span>

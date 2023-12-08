@@ -13,7 +13,7 @@ import {
   FaInstagramSquare,
   FaTwitterSquare,
 } from 'react-icons/fa'
-import { ToastContainer, toast } from 'react-toastify'
+import { toast } from 'react-toastify'
 import { isValidEmail } from 'utils'
 import {
   movieGenre,
@@ -40,17 +40,6 @@ const Footer = () => {
 
   return (
     <div className='container'>
-      <ToastContainer
-        position='top-right'
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        draggable={false}
-        rtl={false}
-        pauseOnFocusLoss
-        pauseOnHover
-      />
       <section className={styles.footer}>
         <nav className={styles.nav}>
           <div className={styles.nav__section}>

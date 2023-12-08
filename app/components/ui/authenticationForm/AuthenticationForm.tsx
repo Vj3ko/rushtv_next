@@ -3,15 +3,15 @@
 import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
-import { ToastContainer, toast } from 'react-toastify'
+import { toast } from 'react-toastify'
 import styles from './AuthenticationForm.module.scss'
 import FormData from './formData/FormData'
 
 export type LoginOrRegister = 'login' | 'register'
 export type FormDataType = {
-  name: string
+  name?: string
   password: string
-  email?: string
+  email: string
 }
 
 export const AuthenticationForm = () => {
@@ -25,7 +25,7 @@ export const AuthenticationForm = () => {
 
   const handleRegister = async (data: FormDataType) => {
     try {
-      const response = await fetch('/api/register', {
+      const response = await fetch('/api/authenticate', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -40,6 +40,7 @@ export const AuthenticationForm = () => {
         return
       } else {
         toast.success(message)
+        changeForm()
       }
     } catch (error) {
       toast.error('Error trying to register')
@@ -47,11 +48,11 @@ export const AuthenticationForm = () => {
   }
 
   const handleLogin = async (data: FormDataType) => {
-    const { name, password } = data
+    const { email, password } = data
 
     try {
       const response = await signIn('credentials', {
-        name,
+        email,
         password,
         redirect: false,
       })
@@ -61,7 +62,7 @@ export const AuthenticationForm = () => {
         return
       }
 
-      router.refresh()
+      router.push('/user')
     } catch (error) {
       console.error('Error trying to login', error)
     }
@@ -69,17 +70,6 @@ export const AuthenticationForm = () => {
 
   return (
     <div className={styles.wrapper}>
-      <ToastContainer
-        position='top-right'
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        draggable={false}
-        rtl={false}
-        pauseOnFocusLoss
-        pauseOnHover
-      />
       <FormData
         key={type}
         type={type}

@@ -1,0 +1,37 @@
+@import 'styles/mixins';
+@import 'styles/colors';
+@import 'styles/breakpoints';
+
+.wrapper {
+  @include sectionSpacing($margin-S);
+  padding-bottom: 1.5625rem;
+  border-bottom: 1.008px soLid rgba(179, 179, 179, 0.4);
+
+  @include media-min($lg) {
+    @include sectionSpacing($margin-M);
+  }
+
+  .flex {
+    @include flexLayout(flex-start, center);
+    gap: 0.625rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .signOut {
+    background: transparent;
+    font-family: 'Bebas Neue', Papyrus, cursive;
+    letter-spacing: 0.125rem;
+    color: $blue;
+    border: 0.0625rem solid $blue;
+    border-radius: 0.25rem;
+    padding: 0.375rem 0.9375rem;
+    outline: none;
+    @include transition();
+
+    &:hover,
+    &:focus {
+      background: $blue;
+      color: $white;
+    }
+  }
+}

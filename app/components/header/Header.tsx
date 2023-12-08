@@ -2,12 +2,11 @@
 
 import { headerVariant, menuBtnVariant, navVariant } from 'animations/variants'
 import { AnimatePresence, motion } from 'framer-motion'
-import { signOut, useSession } from 'next-auth/react'
+import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import { AiOutlineClose } from 'react-icons/ai'
 import { BsSearch } from 'react-icons/bs'
-import { FaUser } from 'react-icons/fa'
 import { RiMenu3Line } from 'react-icons/ri'
 import {
   movieGenre,
@@ -23,6 +22,7 @@ const Navigation = () => {
   const [openMenu, setOpenMenu] = useState(false)
   const [navColor, setNavColor] = useState(false)
   const [lastScrollY, setLastScrollY] = useState(0)
+  const [isUserMenuActive, setIsUserMenuActive] = useState(false)
   const { data: session } = useSession()
 
   function controlNav(): void {
@@ -90,11 +90,20 @@ const Navigation = () => {
             </Link>
 
             <div className={styles.header__action}>
-              {session && <button onClick={() => signOut()}>logout</button>}
+              {/* {session && <button onClick={() => signOut()}>logout</button>} */}
 
-              <Link href={'/user'} style={{ backgroundColor: 'transparent' }}>
-                <FaUser color='white' size={20} />
-              </Link>
+              {session ? (
+                <Link
+                  href={'/user'}
+                  className={styles.user}
+                  onClick={() => setIsUserMenuActive(prev => !prev)}>
+                  {session.user?.name}
+                </Link>
+              ) : (
+                <Link href={'/authenticate'} className={styles.auth}>
+                  sign in
+                </Link>
+              )}
 
               <Link
                 href='/search'

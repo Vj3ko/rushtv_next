@@ -1,0 +1,30 @@
+@import 'styles/colors';
+@import 'styles/mixins';
+@import 'styles/breakpoints';
+
+.ribbon {
+  position: absolute;
+  right: 0.75rem;
+  bottom: 0;
+  width: 1.875rem;
+  height: 2.5rem;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 70%, 0 100%);
+  background: $silver;
+  @include flexLayout(center, unset);
+  padding-top: 0.625rem;
+  z-index: 1;
+  cursor: pointer;
+  @include transition();
+
+  &:hover {
+    background: rgba($silver, 0.75);
+  }
+
+  &.active {
+    background: $blue;
+
+    &:hover {
+      background: rgba($blue, 0.5);
+    }
+  }
+}

@@ -29,7 +29,7 @@
     }
 
     .header__logo {
-      font-family: 'Bebas Neue', cursive;
+      font-family: 'Bebas Neue', Papyrus, cursive;
       text-shadow: 0.125rem 0.125rem 0.313rem rgba(0, 0, 0, 0.3);
       letter-spacing: 0.125rem;
     }
@@ -123,4 +123,18 @@
     position: fixed;
     background: rgba(11, 12, 15, 0.8);
   }
+}
+
+.auth {
+  font-family: 'Bebas Neue', Papyrus, cursive;
+  letter-spacing: 0.125rem;
+  font-size: 1.25rem;
+}
+
+.user {
+  background: transparent;
+  display: flex;
+  align-items: center;
+  position: relative;
+  text-transform: capitalize;
 }

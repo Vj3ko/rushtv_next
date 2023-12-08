@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import 'styles/globals.scss'
 import { MemoizedFooter } from './components/footer/Footer'
@@ -20,6 +21,17 @@ export default function RootLayout({
       <body>
         <AuthProvider>
           <MemoizedNavigation />
+          <ToastContainer
+            position='top-right'
+            autoClose={3000}
+            hideProgressBar={false}
+            newestOnTop={true}
+            closeOnClick
+            draggable={false}
+            rtl={false}
+            pauseOnFocusLoss
+            pauseOnHover
+          />
           <main style={{ minHeight: '50vh' }}>{children}</main>
           <MemoizedFooter />
         </AuthProvider>
