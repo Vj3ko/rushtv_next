@@ -1,3 +1,4 @@
+import { SpeedInsights } from '@vercel/speed-insights/next'
 import type { Metadata } from 'next'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
@@ -35,6 +36,7 @@ export default function RootLayout({
           <main style={{ minHeight: '50vh' }}>{children}</main>
           <MemoizedFooter />
         </AuthProvider>
+        <SpeedInsights />
       </body>
     </html>
   )
