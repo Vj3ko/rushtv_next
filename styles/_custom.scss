@@ -169,6 +169,7 @@
     @include transition();
     outline: none;
     scroll-snap-align: start;
+    cursor: pointer;
 
     &:hover,
     &:focus {

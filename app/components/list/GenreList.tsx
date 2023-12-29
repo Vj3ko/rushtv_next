@@ -35,27 +35,37 @@ const GenreList = ({ mediaType, title, genre }: Genre) => {
 
           <div className='filter__btns'>
             <div
+              role='button'
               className='filter'
               onClick={() => setFilter('popularity.desc')}>
               Most Popular
             </div>
             <div
+              role='button'
               className='filter'
               onClick={() => setFilter('vote_count.desc')}>
               Most Voted
             </div>
-            <div className='filter' onClick={() => setFilter('popularity.asc')}>
+            <div
+              role='button'
+              className='filter'
+              onClick={() => setFilter('popularity.asc')}>
               Least Popular
             </div>
-            <div className='filter' onClick={() => setFilter('revenue.desc')}>
+            <div
+              role='button'
+              className='filter'
+              onClick={() => setFilter('revenue.desc')}>
               Biggest Revenue
             </div>
             <div
+              role='button'
               className='filter'
               onClick={() => setFilter('primary_release_date.desc')}>
               Latest
             </div>
             <div
+              role='button'
               className='filter'
               onClick={() => setFilter('primary_release_date.asc')}>
               Oldest
