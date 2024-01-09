@@ -62,6 +62,7 @@ const FormData = ({
                 value={name}
                 name=''
                 onChange={e => setName(e.target.value)}
+                autoFocus
               />
               <label>name</label>
             </div>
@@ -73,6 +74,7 @@ const FormData = ({
               value={email}
               name=''
               onChange={e => setEmail(e.target.value)}
+              autoFocus={type === 'login'}
             />
             <label>email</label>
           </div>
