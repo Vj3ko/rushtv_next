@@ -11,12 +11,15 @@ interface FetchData<T> {
   data: T | null
   loading: boolean
   error: any
+  resetData: () => void
 }
 
 export const useFetch = <T>(options: FetchOptions): FetchData<T> => {
   const [data, setData] = useState(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
+
+  const resetData = () => setData(null)
 
   useEffect(() => {
     setLoading(true)
@@ -29,7 +32,6 @@ export const useFetch = <T>(options: FetchOptions): FetchData<T> => {
         })
         .catch(err => setError(err))
         .finally(() => {
-          // setTimeout(() => setLoading(false), 200)
           setLoading(false)
         })
 
@@ -39,5 +41,5 @@ export const useFetch = <T>(options: FetchOptions): FetchData<T> => {
     }
   }, [options.url])
 
-  return { data, loading, error }
+  return { data, loading, error, resetData }
 }

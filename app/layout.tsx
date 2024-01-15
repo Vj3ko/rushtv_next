@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import 'styles/globals.scss'
+import CookiesContainer from './components/cookiesContainer/CookiesContainer'
 import { MemoizedFooter } from './components/footer/Footer'
 import { MemoizedNavigation } from './components/header/Header'
 import AuthProvider from './providers'
@@ -37,6 +38,8 @@ export default function RootLayout({
           <MemoizedFooter />
         </AuthProvider>
         <SpeedInsights />
+
+        <CookiesContainer />
       </body>
     </html>
   )
