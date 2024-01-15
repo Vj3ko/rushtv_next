@@ -2,24 +2,41 @@
 
 import AnimatedComponent from 'animations/AnimatedComponent'
 import { Pagination, Results, Slider, Spinner } from 'app/components/ui'
-import axios from 'axios'
 import { BASE_URL, KEY } from 'constants/index'
+import { AnimatePresence, motion } from 'framer-motion'
+import { useFetch } from 'hooks/useFetch'
 import Link from 'next/link'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useState } from 'react'
 import styles from './SearchPage.module.scss'
 
+const INITIAL_PAGE_VALUE: number = 1
+const sectionAnimation = {
+  hide: {
+    opacity: 0,
+  },
+  show: {
+    opacity: 1,
+    transition: {
+      delay: 0.3,
+      duration: 0.5,
+    },
+  },
+}
+
 const SearchPage = () => {
-  const [pageValue, setPageValue] = useState(1)
+  const [pageValue, setPageValue] = useState(INITIAL_PAGE_VALUE)
   const [inputText, setInputText] = useState<string>('')
-  const [data, setData] = useState<any>(null)
-  const [showData, setShowData] = useState(false)
-  const [loading, setLoading] = useState(false)
+  const [shouldShowData, setShouldShowData] = useState(false)
+  const [query, setQuery] = useState('')
 
   const searchParams = useSearchParams()
   const pathname = usePathname()
   const router = useRouter()
-  const query = searchParams.get('q')
+
+  const { data, resetData, loading } = useFetch<any>({
+    url: `${BASE_URL}/search/multi?api_key=${KEY}&language=en-US&query=${query}&page=${pageValue}&include_adult=false`,
+  })
 
   const createNewQuery = useCallback(
     (name: string, value: string) => {
@@ -31,51 +48,28 @@ const SearchPage = () => {
     [searchParams],
   )
 
-  const fetchData = (url: string) => {
-    if (!showData) setLoading(true)
-    if (url) {
-      let isCancelled = false
-      axios
-        .get(url)
-        .then(res => {
-          if (!isCancelled) setData(res.data)
-        })
-        .finally(() => {
-          setLoading(false)
-          setShowData(true)
-        })
-
-      return () => (isCancelled = true)
-    }
-  }
-
-  useEffect(() => {
-    if (query) {
-      fetchData(
-        `${BASE_URL}/search/multi?api_key=${KEY}&language=en-US&query=${query}&page=${pageValue}&include_adult=false`,
-      )
-    }
-  }, [query, pageValue])
-
   const callbackPageChange = useCallback((page: number) => {
     setPageValue(page)
   }, [])
 
   function resetSearch() {
+    resetData()
     setInputText('')
-    setShowData(false)
-    setPageValue(1)
-    setData(null)
+    setQuery('')
+    setPageValue(INITIAL_PAGE_VALUE)
+    setShouldShowData(false)
   }
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    if (inputText && inputText.replace(/\s/g, '').length > 0) {
-      router.replace(pathname + '?' + createNewQuery('q', inputText))
+    const text = inputText
+    const isTrimmedText = inputText.replace(/\s/g, '').length > 0
+    if (text && isTrimmedText) {
+      router.replace(pathname + '?' + createNewQuery('q', text))
+      setQuery(text)
+      setShouldShowData(true)
     }
   }
-
-  if (loading) return <Spinner />
 
   return (
     <AnimatedComponent>
@@ -83,11 +77,13 @@ const SearchPage = () => {
         <div
           className={styles.search__section}
           style={{
-            alignItems:
-              showData && data?.results.length !== 0 ? 'start' : 'center',
+            alignItems: 'center',
+            // showData && data?.results.length !== 0 ? 'start' : 'center',
+            // alignItems: data && data?.results.length !== 0 ? 'start' : 'center',
           }}>
           <div className={styles.wrapper}>
-            {!showData ? (
+            {/* on component mount show the search form */}
+            {!shouldShowData ? (
               <div>
                 <h2>What are u looking for</h2>
                 <p>Start searching by typing a word or a phrase.</p>
@@ -102,7 +98,8 @@ const SearchPage = () => {
                   <button>Search</button>
                 </form>
               </div>
-            ) : showData && data?.results.length !== 0 ? (
+            ) : data?.results.length !== 0 && shouldShowData ? (
+              /* show the data if data exist depending on search query */
               <div style={{ width: '100%' }}>
                 <div>
                   <h2 style={{ textAlign: 'left' }}>
@@ -136,18 +133,28 @@ const SearchPage = () => {
                 </div>
               </div>
             ) : (
-              <div>
-                <h2>
-                  No results found for term: &apos;<em>{query}&apos;</em>
-                </h2>
-                <p>
-                  Not exactly what you were searching for? Click{' '}
-                  <Link onClick={resetSearch} href='/search'>
-                    here
-                  </Link>{' '}
-                  to try again.
-                </p>
-              </div>
+              data?.results.length === 0 &&
+              shouldShowData &&
+              !loading && (
+                /* show message if the searched data does not exist */
+                <AnimatePresence>
+                  <motion.div
+                    variants={sectionAnimation}
+                    initial='hide'
+                    animate='show'>
+                    <h2>
+                      No results found for term: &apos;<em>{query}&apos;</em>
+                    </h2>
+                    <p>
+                      Not exactly what you were searching for? Click{' '}
+                      <Link onClick={resetSearch} href='/search'>
+                        here
+                      </Link>{' '}
+                      to try again.
+                    </p>
+                  </motion.div>
+                </AnimatePresence>
+              )
             )}
           </div>
         </div>

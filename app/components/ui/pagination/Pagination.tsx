@@ -10,6 +10,7 @@ interface PaginationProps {
 }
 
 const PaginationCom = ({ changePage, totalPages }: PaginationProps) => {
+  console.log('pagination re-rendered')
   return (
     <section className={styles.pagination__section}>
       <ReactPaginate
