@@ -89,7 +89,7 @@ export const pageVariant = {
   },
   visible: {
     opacity: 1,
-    transition: { duration: 0.2 },
+    transition: { duration: 0.5 },
   },
   exit: {
     opacity: 0,
