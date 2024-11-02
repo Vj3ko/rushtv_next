@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import React, { useState } from 'react'
+import React, { FC, useState } from 'react'
 import {
   Accordion,
   AccordionBody,
@@ -24,10 +24,10 @@ import {
 } from 'utils/routesData'
 import styles from './Footer.module.scss'
 
-const Footer = () => {
-  const [email, setEmail] = useState<string>('')
+const Footer: FC = () => {
+  const [email, setEmail] = useState('')
 
-  function handleSubmit(): void {
+  function handleSubmit() {
     if (email && email.replace(/\s/g, '').length > 0) {
       if (isValidEmail(email)) {
         toast.success('Success, stay tuned for updates')

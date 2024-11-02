@@ -2,12 +2,12 @@
 
 import { hasCookie, setCookie } from 'cookies-next'
 import { motion } from 'framer-motion'
-import React, { useEffect, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import styles from './CookiesContainer.module.scss'
 
 const ONE_MONTH = 60 * 60 * 24 * 30
 
-const CookiesContainer = () => {
+const CookiesContainer: FC = () => {
   const [showConsent, setShowConsent] = useState(true)
 
   useEffect(() => {
