@@ -4,6 +4,7 @@ import { BASE_URL, KEY } from 'constants/index'
 const getPersonDetails = async (id: string) => {
   const res = await fetch(
     `${BASE_URL}/person/${id}?api_key=${KEY}&include_adult=false&append_to_response=videos,similar,credits,recommendations,images,release_dates,content_ratings,external_ids&include_image_language=en,null`,
+    { next: { revalidate: 3600 } },
   )
 
   if (!res.ok) {

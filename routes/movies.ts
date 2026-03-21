@@ -10,7 +10,7 @@ const topRatedMoviesURL = `${BASE_URL}/movie/top_rated?api_key=${KEY}&include_ad
 export const getMovies = async (url: string) => {
   const res = await fetch(url, {
     next: {
-      revalidate: 86400000,
+      revalidate: 86400, // 24 hours — list data changes infrequently
     },
   })
 
@@ -25,6 +25,7 @@ export const getMovies = async (url: string) => {
 const getMovieDetails = async (id: string) => {
   const res = await fetch(
     `${BASE_URL}/movie/${id}?api_key=${KEY}&include_adult=false&append_to_response=videos,similar,credits,recommendations,images,release_dates,content_ratings,external_ids&include_image_language=en,null`,
+    { next: { revalidate: 3600 } },
   )
 
   if (!res.ok) {
