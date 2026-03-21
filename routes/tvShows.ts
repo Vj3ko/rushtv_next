@@ -8,7 +8,7 @@ const crimeShowsURL = `${BASE_URL}/discover/tv?api_key=${KEY}&include_adult=fals
 const getTvShows = async (url: string) => {
   const res = await fetch(url, {
     next: {
-      revalidate: 86400000,
+      revalidate: 86400, // 24 hours — list data changes infrequently
     },
   })
 
@@ -23,6 +23,7 @@ const getTvShows = async (url: string) => {
 const getTvShowDetails = async (id: string) => {
   const res = await fetch(
     `${BASE_URL}/tv/${id}?api_key=${KEY}&include_adult=false&append_to_response=videos,similar,credits,recommendations,images,release_dates,content_ratings,external_ids&include_image_language=en,null`,
+    { next: { revalidate: 3600 } },
   )
 
   if (!res.ok) {
@@ -33,7 +34,7 @@ const getTvShowDetails = async (id: string) => {
 }
 
 const getTvShowMinorDetails = async (id: string) => {
-  const res = await fetch(`${BASE_URL}/tv/${id}?api_key=${KEY}`)
+  const res = await fetch(`${BASE_URL}/tv/${id}?api_key=${KEY}`, { next: { revalidate: 3600 } })
 
   if (!res.ok) {
     throw new Error('Failed to fetch movie details')
@@ -46,6 +47,7 @@ const getTvShowMinorDetails = async (id: string) => {
 export const getTvShowSeasonDetails = async (id: string, number: string) => {
   const res = await fetch(
     `${BASE_URL}/tv/${id}/season/${number}?api_key=${KEY}&include_adult=false&append_to_response=videos,similar,credits,recommendations,images,release_dates,content_ratings,external_ids&include_image_language=en,null`,
+    { next: { revalidate: 3600 } },
   )
 
   if (!res.ok) {
@@ -63,6 +65,7 @@ const getTvShowEpisodeDetails = async (
 ) => {
   const res = await fetch(
     `${BASE_URL}/tv/${id}/season/${season}/episode/${episode}?api_key=${KEY}&include_adult=false&append_to_response=videos,similar,credits,recommendations,images,release_dates,content_ratings,external_ids&include_image_language=en,null`,
+    { next: { revalidate: 3600 } },
   )
 
   if (!res.ok) {

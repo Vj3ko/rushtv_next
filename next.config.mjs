@@ -2,19 +2,8 @@
  * @type {import('next').NextConfig}
  */
 const nextConfig = {
-  experimental: {
-    serverComponentsExternalPackages: ['mongoose', 'bcrypt'],
-  },
-  // webpack: (config) => {
-  //   config.experiments = {
-  //     ...config.experiments,
-  //     topLevelAwait: true
-  //   }
-
-  //   return config
-  // },
+  serverExternalPackages: ['mongoose', 'bcrypt'],
   images: {
-    unoptimized: true,
     remotePatterns: [
       {
         protocol: 'https',
